@@ -21,11 +21,13 @@ A secure REST API built with Node.js and Express that provides movie information
 
 1. Clone the repository
 2. Install dependencies:
+
    ```bash
    npm install
    ```
 
 3. Create a `.env` file in the root directory with the following variables:
+
    ```env
    PORT=3001
    DB_HOST=localhost
@@ -37,7 +39,7 @@ A secure REST API built with Node.js and Express that provides movie information
 
 4. Place your SSL certificates in the appropriate directory and update the paths in `app.js`
 
-## Start the Server in different ways:
+## Start the Server in different ways
 
 - `npm run dev` to start the server in **Development** mode with hot reloading
 - `npm start` to start the server in **Production** mode
@@ -45,6 +47,7 @@ A secure REST API built with Node.js and Express that provides movie information
 ## Database Structure
 
 The API uses a MySQL database with the following tables:
+
 - `basics`: Core movie information
 - `crew`: Director and writer information
 - `names`: Person details (actors, directors, etc.)
@@ -57,12 +60,14 @@ The API uses a MySQL database with the following tables:
 ### Authentication
 
 #### Register User
-- **POST** `https://localhost:3001/user/register` 
+
+- **POST** `https://localhost:3001/user/register`
 - Headers: `Content-Type: application/json`
 - Body: `{ "email": "user@example.com", "password": "password" }`
 - Creates new user account
 
 #### Login User
+
 - **POST** `https://localhost:3001/user/login`
 - - Headers: `Content-Type: application/json`
 - Body: `{ "email": "user@example.com", "password": "password" }`
@@ -71,6 +76,7 @@ The API uses a MySQL database with the following tables:
 ### Movies (Public Endpoints)
 
 #### Search Movies by Title
+
 - **GET** `https://localhost:3001/movies/search`
 - Query Parameters:
   - `title` (required): Search term
@@ -80,19 +86,23 @@ The API uses a MySQL database with the following tables:
 - Example: `https://localhost:3001/movies/search?title=Avatar`
 
 #### Get Movie Details by imdbID
+
 - **GET** `https://localhost:3001/movies/data/{imdbID}`
 - Returns detailed information about a specific movie
 - Example: `https://localhost:3001/movies/data/tt1630029`
-- 
+-
+
 ### Posters (Protected Endpoints)
 
 #### Get Movie Poster
+
 - **GET** `https://localhost:3001/posters/{imdbID}`
 - Headers: `Authorization: Bearer your_token_here`
 - Requires JWT Authentication
 - Returns poster image for specified movie
 
 #### Upload Movie Poster
+
 - **POST** `https://localhost:3001/posters/add/{imdbID}`
 - Headers: `Authorization: Bearer your_token_here`
 - Requires JWT Authentication
@@ -111,6 +121,7 @@ The API uses a MySQL database with the following tables:
 ## Error Handling
 
 The API implements comprehensive error handling with appropriate HTTP status codes:
+
 - 200: Successful operation
 - 201: Resource created
 - 400: Bad request
@@ -135,28 +146,31 @@ A few suggestions for improvements:
 3. Consider implementing rate limiting
 4. Add logging middleware for better debugging
 
-
 ## SSL Certificate Setup
 
 ### Development (Self-Signed Certificates)
 
 1. Install required package:
+
 ```bash
 npm install node-forge --save-dev
 ```
 
 2. Generate certificates using the provided script:
+
 ```bash
 npm run generate-ssl
 ```
 
 This will create two files in the `ssl` directory:
+
 - `key.pem`: Private key
 - `cert.pem`: Public certificate
 
 ### Production
 
 For production, use certificates from a trusted Certificate Authority (CA):
+
 1. Purchase or obtain free certificates (e.g., Let's Encrypt)
 2. Place the certificates in the `ssl` directory
 3. Update paths in `app.js` if necessary
@@ -164,43 +178,56 @@ For production, use certificates from a trusted Certificate Authority (CA):
 ### Testing with Self-Signed Certificates
 
 #### Postman
+
 Option 1: Disable SSL verification
+
 1. Settings → General
 2. Turn OFF "SSL certificate verification"
 
 Option 2: Add certificate to Postman
+
 1. Settings → Certificates
 2. Add your certificate under "CA Certificates"
 
 #### Browser
+
 When accessing the API, you may see a security warning because it's a self-signed certificate.
+
 1. Click "Advanced"
 2. Click "Proceed to localhost (unsafe)"
 
 **Note:** Self-signed certificates should only be used for development. Always use trusted CA certificates in production.
 
-## Expected Responses:
+## Expected Responses
 
-**user/register**
+### **user/register**
+
 - Success (201):
+
   ```json
   { "message": "User created" }
   ```
+
 - Error: User Exists (409):
+
   ```json
   { "error": true, 
     "message": "User already exists" 
   }
   ```
+
 - Error: Incomplete Request (400):
+
   ```json
   { "error": true, 
     "message": "Request body incomplete, both email and password are required" 
   }
   ```
 
-**user/login**
+### **user/login**
+
 - Success (200):
+
   ```json
   {
     "token": "ajsonwebtoken",
@@ -208,14 +235,18 @@ When accessing the API, you may see a security warning because it's a self-signe
     "expires_in": 86400
   }
   ```
+
 - Invalid login request (400):
+
   ```json
   {
     "error": true,
     "message": "Request body incomplete, both email and password are required"
   }
   ```
+
 - Login failed (401):
+
   ```json
   {
     "error": true,
@@ -223,8 +254,10 @@ When accessing the API, you may see a security warning because it's a self-signe
   }
   ```
 
-**movies/search**
+### **movies/search**
+
 - Success (200):
+
   ```json
   {
     "data": [
@@ -247,6 +280,7 @@ When accessing the API, you may see a security warning because it's a self-signe
   ```
 
 - Invalid year format (400):
+
   ```json
   {
     "error": true,
@@ -254,8 +288,10 @@ When accessing the API, you may see a security warning because it's a self-signe
   }
   ```
 
-**movies/data/{imdbID}**
+### **movies/data/{imdbID}**
+
 - Success (200):
+
   ```javascript
   [
     {
@@ -277,6 +313,7 @@ When accessing the API, you may see a security warning because it's a self-signe
   ```
 
 - Invalid query parameters (400):
+
   ```json
   {
     "error": true,
@@ -296,7 +333,6 @@ When accessing the API, you may see a security warning because it's a self-signe
 401: Unauthorized
 500: Upload failed
 
-
 ## References
 
 - [Node.js HTTPS Tutorial](https://www.youtube.com/watch?v=Oe421EPraWQ)
@@ -306,8 +342,6 @@ When accessing the API, you may see a security warning because it's a self-signe
 - [test-2.png](https://www.vecteezy.com/png/1198753-camera)
 - [test-3.png](https://www.vecteezy.com/png/9306133-camera-film-roll-clipart-design-illustration)
 
+## Author
 
-*.log
-*.pem
-.env
-.vscode/
+Ebad Salehi
