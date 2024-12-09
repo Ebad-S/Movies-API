@@ -64,14 +64,18 @@ The API uses a MySQL database with the following tables:
 - **POST** `https://localhost:3001/user/register`
 - Headers: `Content-Type: application/json`
 - Body: `{ "email": "user@example.com", "password": "password" }`
-- Creates new user account
+- Creates new user account and returns a JSON object including a JWT token to be used for authentication in protected endpoints.
+
+![register user](./screenshots/endPoint-3.jpg)
 
 #### Login User
 
 - **POST** `https://localhost:3001/user/login`
 - - Headers: `Content-Type: application/json`
 - Body: `{ "email": "user@example.com", "password": "password" }`
-- Returns a JSON object including a JWT token
+- Returns a JSON object including a JWT token.
+
+![login user](./screenshots/endPoint-4.jpg)
 
 ### Movies (Public Endpoints)
 
@@ -85,29 +89,40 @@ The API uses a MySQL database with the following tables:
 - Returns paginated movie results
 - Example: `https://localhost:3001/movies/search?title=Avatar`
 
+![search by title](./screenshots/endPoint-1.jpg)
+
 #### Get Movie Details by imdbID
 
 - **GET** `https://localhost:3001/movies/data/{imdbID}`
 - Returns detailed information about a specific movie
 - Example: `https://localhost:3001/movies/data/tt1630029`
--
+
+![search by imdbID](./screenshots/endPoint-2.jpg)
 
 ### Posters (Protected Endpoints)
 
-#### Get Movie Poster
+a JWT token generated during login, must be passed in the header of the request.
 
-- **GET** `https://localhost:3001/posters/{imdbID}`
-- Headers: `Authorization: Bearer your_token_here`
-- Requires JWT Authentication
-- Returns poster image for specified movie
+![add JWT token to header](./screenshots/endPoint-7.jpg)
 
 #### Upload Movie Poster
 
 - **POST** `https://localhost:3001/posters/add/{imdbID}`
 - Headers: `Authorization: Bearer your_token_here`
-- Requires JWT Authentication
+- Requires JWT Authentication (in the Header)
 - Accepts PNG image file
 - Maximum file size: 5MB
+
+![upload movie poster](./screenshots/endPoint-5.jpg)
+
+#### Get Movie Poster
+
+- **GET** `https://localhost:3001/posters/{imdbID}`
+- Headers: `Authorization: Bearer your_token_here`
+- Requires JWT Authentication (in the Header)
+- Returns poster image for specified movie
+
+![get movie poster](./screenshots/endPoint-6.jpg)
 
 ## Security Features
 
@@ -332,15 +347,6 @@ When accessing the API, you may see a security warning because it's a self-signe
 400: Invalid query parameters
 401: Unauthorized
 500: Upload failed
-
-## References
-
-- [Node.js HTTPS Tutorial](https://www.youtube.com/watch?v=Oe421EPraWQ)
-- [Multer Documentation](https://github.com/expressjs/multer)
-- [JWT Documentation](https://github.com/auth0/node-jsonwebtoken)
-- [test-1.png](https://www.andrewcourtemanche.com/misc/test/test-1.png)
-- [test-2.png](https://www.vecteezy.com/png/1198753-camera)
-- [test-3.png](https://www.vecteezy.com/png/9306133-camera-film-roll-clipart-design-illustration)
 
 ## Author
 
