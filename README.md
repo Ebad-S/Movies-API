@@ -120,7 +120,7 @@ a JWT token generated during login, must be passed in the header of the request.
 - **GET** `https://localhost:3001/posters/{imdbID}`
 - Headers: `Authorization: Bearer your_token_here`
 - Requires JWT Authentication (in the Header)
-- Returns poster image for specified movie
+- Returns previously uploaded poster image for specified movie
 
 ![get movie poster](./screenshots/endPoint-6.jpg)
 
@@ -148,18 +148,17 @@ The API implements comprehensive error handling with appropriate HTTP status cod
 
 ## Database Connection
 
-The API uses Knex.js as the SQL query builder. Database configuration is managed through `knexfile.js` and environment variables.
+The API uses `Knex.js` as the SQL query builder. Database configuration is managed through `knexfile.js` and `.evn` containing environment variables.
 
 ## Testing
 
-API endpoints can be tested using Postman. Import the provided collection for testing all endpoints.
+API endpoints can be tested using *Postman*. Import the provided collection for testing all endpoints.
 
-A few suggestions for improvements:
+A few improvements for next itteration:
 
-1. Implement more robust error handling for database operations
-2. Add input validation for the movie search parameters
-3. Consider implementing rate limiting
-4. Add logging middleware for better debugging
+1. Implementing more robust error handling for database operations
+2. Adding input validation for the movie search parameters
+3. Implemention of rate limiting
 
 ## SSL Certificate Setup
 
