@@ -336,16 +336,18 @@ When accessing the API, you may see a security warning because it's a self-signe
   ```
 
 **posters/{imdbID}**
-200: The requested poster (image/png)
-400: Invalid query parameters
-401: Unauthorized
-500: Poster not found
+
+- 200: The requested poster (image/png)
+- 400: Invalid query parameters
+- 401: Unauthorized
+- 500: Poster not found
 
 **posters/add/{imdbID}**
-200: Poster uploaded successfully
-400: Invalid query parameters
-401: Unauthorized
-500: Upload failed
+
+- 200: Poster uploaded successfully
+- 400: Invalid query parameters
+- 401: Unauthorized
+- 500: Upload failed
 
 ## Author
 
