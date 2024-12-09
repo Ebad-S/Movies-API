@@ -338,16 +338,71 @@ When accessing the API, you may see a security warning because it's a self-signe
 ### **posters/{imdbID}**
 
 - 200: The requested poster (image/png)
+  
+  ` Returns the requested poster in image/png format. `
 - 400: Invalid query parameters
+
+  ```json
+  {
+  "error": true,
+  "message": "Invalid query parameters: Query parameters are not permitted."
+  }
+  ```
+
 - 401: Unauthorized
+  
+  ```json
+  {
+  "error": true,
+  "message": "Unauthorized: Valid authentication credentials are required."
+  }
+  ```
+
 - 500: Poster not found
+  
+  ```json
+  {
+  "error": true,
+  "message": "Poster not found: Unable to retrieve the requested poster for the provided IMDb ID."
+  }
+  ```
 
 ### **posters/add/{imdbID}**
 
 - 200: Poster uploaded successfully
+
+  ```json
+  {
+  "message": "Poster uploaded successfully"
+  }
+  ```
+
 - 400: Invalid query parameters
+  
+  ```json
+  {
+  "error": true,
+  "message": "Invalid query parameters: Query parameters are not permitted."
+  }
+  ```
+
 - 401: Unauthorized
--500: Upload failed
+
+  ```json
+  {
+  "error": true,
+  "message": "Unauthorized: Valid authentication credentials are required."
+  }
+  ```
+  
+- 500: Upload failed
+  
+  ```json
+  {
+  "error": true,
+  "message": "Upload failed: Unable to upload the poster for the provided IMDb ID."
+  }
+  ```
 
 ## Author
 
